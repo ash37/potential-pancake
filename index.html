@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>QLD Digital Licence</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <style>
+    :root {
+      --qgov-gold: #f4a93a;
+      --qgov-gold-dark: #e1901b;
+      --text-main: #111111;
+      --text-muted: #6d6d6d;
+      --border-subtle: #e4e4e4;
+      --pill-green: #008a43;
+      --pill-green-light: #e4f6eb;
+      --nav-icon: #555555;
+      --nav-icon-active: #b31200;
+      --card-bg: #ffffff;
+      --background: #f2f2f2;
+      --shadow-soft: 0 8px 18px rgba(0, 0, 0, 0.12);
+      --radius-large: 20px;
+      --radius-card: 16px;
+      --radius-pill: 999px;
+      --safe-top: env(safe-area-inset-top, 0px);
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui,
+        sans-serif;
+      background: var(--background);
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: stretch;
+      min-height: 100vh;
+    }
+
+    /* Outer phone frame */
+    .phone {
+      width: 100%;
+      max-width: 430px;
+      min-height: 100vh;
+      border-radius: 0;
+      background: var(--background);
+      overflow: hidden;
+      box-shadow: none;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    @media (min-width: 421px) {
+      body {
+        background: #000;
+        align-items: center;
+      }
+
+      .phone {
+        width: 390px;
+        height: 844px;
+        border-radius: 40px;
+        box-shadow: 0 0 0 12px #000, 0 20px 40px rgba(0, 0, 0, 0.7);
+      }
+    }
+
+    /* Gradient header background */
+    .phone-header-bg {
+      position: absolute;
+      inset: 0 0 60%;
+      background: linear-gradient(
+        180deg,
+        var(--qgov-gold) 0%,
+        var(--qgov-gold-dark) 100%
+      );
+      z-index: 0;
+    }
+
+    .phone-inner {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+    }
+
+    /* Status bar */
+    .status-bar {
+      height: 48px;
+      padding: 0 18px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      font-size: 14px;
+      color: #000;
+      font-weight: 600;
+    }
+
+    .status-right {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+    }
+
+    .status-icon {
+      display: inline-block;
+    }
+
+    .battery {
+      width: 26px;
+      height: 12px;
+      border-radius: 3px;
+      border: 1.7px solid #000;
+      position: relative;
+    }
+
+    .battery::before {
+      content: "";
+      position: absolute;
+      inset: 1px;
+      border-radius: 2px;
+      background: #000;
+    }
+
+    .battery::after {
+      content: "";
+      position: absolute;
+      right: -3px;
+      top: 3px;
+      width: 3px;
+      height: 6px;
+      border-radius: 2px;
+      background: #000;
+    }
+
+    /* Top nav */
+    .top-bar {
+      padding: calc(4px + var(--safe-top)) 18px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #000;
+    }
+
+    .top-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+    }
+
+    .back-arrow {
+      font-size: 20px;
+      transform: translateY(-1px);
+    }
+
+    .top-title {
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    .top-right {
+      font-size: 14px;
+      font-weight: 600;
+      text-align: right;
+    }
+
+    .top-right span {
+      display: block;
+      line-height: 1.1;
+    }
+
+    .qgov-logo {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    /* Content area */
+    .content {
+      flex: 1;
+      padding: 8px 12px calc(12px + var(--safe-bottom));
+      overflow-y: auto;
+    }
+
+    .licence-card {
+      background: var(--card-bg);
+      border-radius: var(--radius-card);
+      box-shadow: var(--shadow-soft);
+      padding: 16px 18px 10px;
+      position: relative;
+    }
+
+    /* Top row: photo + name */
+    .top-row {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .photo-wrapper {
+      background: #f2f2f2;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid #ddd;
+      height: 150px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .photo-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .name-block {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .name-main {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      line-height: 1.2;
+    }
+
+    .label {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .value {
+      font-size: 15px;
+      color: var(--text-main);
+    }
+
+    .value.bold {
+      font-weight: 600;
+    }
+
+    .inline-link {
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 2px;
+    }
+
+    .info-refreshed {
+      margin-top: 6px;
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.3;
+    }
+
+    .info-refreshed strong {
+      display: block;
+      margin-top: 2px;
+      color: var(--text-main);
+    }
+
+    /* Rows */
+    .info-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-top: 1px solid var(--border-subtle);
+      font-size: 15px;
+    }
+
+    .info-row:first-of-type {
+      margin-top: 10px;
+    }
+
+    .info-row-label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-main);
+    }
+
+    .info-row-label .i {
+      font-size: 13px;
+      border-radius: 999px;
+      border: 1px solid var(--text-muted);
+      width: 16px;
+      height: 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+    }
+
+    .pill {
+      padding: 3px 14px;
+      border-radius: var(--radius-pill);
+      font-size: 14px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .pill-green-outline {
+      border: 1.5px solid var(--pill-green);
+      color: var(--pill-green);
+      background: #ffffff;
+    }
+
+    .pill-green-solid {
+      background: var(--pill-green);
+      color: #ffffff;
+    }
+
+    .pill-check {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: 2px solid #ffffff;
+      background: var(--pill-green);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+    }
+
+    .info-row-value {
+      text-align: right;
+      font-size: 15px;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .info-row-value .hint {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .info-row-value .car-icon {
+      font-size: 18px;
+      transform: translateY(1px);
+    }
+
+    .address-lines {
+      text-align: right;
+      line-height: 1.2;
+    }
+
+    /* Tab bar */
+    .tab-bar {
+      min-height: 72px;
+      background: #ffffff;
+      border-top: 1px solid rgba(0, 0, 0, 0.08);
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      padding: 6px 4px calc(6px + var(--safe-bottom));
+      position: sticky;
+      bottom: 0;
+    }
+
+    .tab-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      color: var(--nav-icon);
+      gap: 2px;
+    }
+
+    .tab-icon-circle {
+      width: 26px;
+      height: 26px;
+      border-radius: 9px;
+      border: 1.5px solid var(--nav-icon);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+    }
+
+    .tab-item.active {
+      color: var(--nav-icon-active);
+    }
+
+    .tab-item.active .tab-icon-circle {
+      border-color: var(--nav-icon-active);
+    }
+
+    /* “Home” filled icon */
+    .tab-home {
+      width: 28px;
+      height: 24px;
+      border-radius: 8px;
+      border: 1.5px solid var(--nav-icon-active);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .tab-home::before {
+      content: "";
+      width: 16px;
+      height: 12px;
+      border-radius: 3px;
+      border: 1.4px solid var(--nav-icon-active);
+      border-top-width: 2px;
+    }
+
+    .tab-label {
+      margin-top: 2px;
+    }
+
+    /* Bottom “notch” shape above tab bar */
+    .bottom-notch {
+      position: absolute;
+      left: 50%;
+      bottom: calc(72px + var(--safe-bottom));
+      transform: translateX(-50%);
+      width: 140px;
+      height: 34px;
+      background: #ffffff;
+      border-radius: 999px 999px 0 0;
+      box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.08);
+    }
+
+    /* Scrollbar hidden (mobile-like) */
+    .content::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+    }
+
+    @media (max-width: 420px) {
+      .phone {
+        max-width: none;
+        min-height: 100vh;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="phone">
+    <div class="phone-header-bg"></div>
+
+    <div class="phone-inner">
+      <!-- Status bar -->
+    
+
+      <!-- Top bar -->
+      <div class="top-bar">
+        <div class="top-left">
+          <span class="back-arrow">‹</span>
+          <span>Back</span>
+        </div>
+        <div class="top-right">
+          <span class="qgov-logo">Queensland</span>
+          <span class="qgov-logo">Government</span>
+        </div>
+      </div>
+
+      <!-- Title below top bar -->
+      <div style="padding: 0 18px 8px; font-size: 22px; font-weight: 700;">
+        Driver Licence
+      </div>
+
+      <!-- Content -->
+      <div class="content">
+        <div class="licence-card">
+          <div class="top-row">
+            <div class="photo-wrapper">
+              <!-- Use your actual image here if you like -->
+              <!-- <img src="your-photo.jpg" alt="Licence photo" /> -->
+              <span style="font-size:12px; color:#999;">PHOTO</span>
+            </div>
+            <div class="name-block">
+              <div class="name-main">
+                ASHLEY ROBERT<br />
+                KNIGHT
+              </div>
+
+              <div style="margin-top: 8px;">
+                <div class="label">DoB</div>
+                <div class="value bold">17 Jun 1983</div>
+              </div>
+
+              <div style="margin-top: 6px;">
+                <div class="label">Licence No.</div>
+                <div class="value bold inline-link">071441259</div>
+              </div>
+
+              <div class="info-refreshed">
+                Information was refreshed online:
+                <strong>29 Nov 2025 08:39pm</strong>
+              </div>
+            </div>
+          </div>
+
+          <!-- Status -->
+          <div class="info-row">
+            <div class="info-row-label">
+              <span>Status</span>
+              <span class="i">i</span>
+            </div>
+            <div class="info-row-value">
+              <span class="pill pill-green-outline">Current</span>
+            </div>
+          </div>
+
+          <!-- Age -->
+          <div class="info-row">
+            <div class="info-row-label">
+              <span>Age</span>
+            </div>
+            <div class="info-row-value">
+              <span class="pill pill-green-solid">
+                <span class="pill-check">✓</span>
+                Over 18
+              </span>
+            </div>
+          </div>
+
+          <!-- Class -->
+          <div class="info-row">
+            <div class="info-row-label">
+              <span>Class</span>
+              <span class="i">i</span>
+            </div>
+            <div class="info-row-value">
+              <span>(C) Car</span>
+              <span class="car-icon">🚗</span>
+            </div>
+          </div>
+
+          <!-- Type -->
+          <div class="info-row">
+            <div class="info-row-label">
+              <span>Type</span>
+            </div>
+            <div class="info-row-value">(O) Open</div>
+          </div>
+
+          <!-- Expiry -->
+          <div class="info-row">
+            <div class="info-row-label">
+              <span>Expiry</span>
+            </div>
+            <div class="info-row-value">29 Jun 2028</div>
+          </div>
+
+          <!-- Conditions -->
+          <div class="info-row">
+            <div class="info-row-label">
+              <span>Conditions</span>
+              <span class="i">i</span>
+            </div>
+            <div class="info-row-value">-</div>
+          </div>
+
+          <!-- Address -->
+          <div class="info-row">
+            <div class="info-row-label">
+              <span>Address</span>
+            </div>
+            <div class="info-row-value">
+              <div class="address-lines">
+                2 RIDGEWOOD CLOSE<br />
+                SOME SUBURB QLD 4000
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom notch above nav -->
+      <div class="bottom-notch"></div>
+
+      <!-- Bottom tab bar -->
+      <div class="tab-bar">
+        <div class="tab-item active">
+          <div class="tab-home"></div>
+          <div class="tab-label">Home</div>
+        </div>
+        <div class="tab-item">
+          <div class="tab-icon-circle">▢</div>
+          <div class="tab-label">Wallet</div>
+        </div>
+        <div class="tab-item">
+          <div class="tab-icon-circle">▣</div>
+          <div class="tab-label">Show QR</div>
+        </div>
+        <div class="tab-item">
+          <div class="tab-icon-circle">▢</div>
+          <div class="tab-label">Scan QR</div>
+        </div>
+        <div class="tab-item">
+          <div class="tab-icon-circle">✉︎</div>
+          <div class="tab-label">Messages</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

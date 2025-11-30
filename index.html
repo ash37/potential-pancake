@@ -28,6 +28,7 @@
       --radius-pill: 999px;
       --safe-top: env(safe-area-inset-top, 0px);
       --safe-bottom: env(safe-area-inset-bottom, 0px);
+      --header-height: 56px; /* Progressier-style fixed header height */
     }
 
     html {
@@ -52,6 +53,56 @@
       align-items: stretch;
       min-height: 100vh;
       min-height: 100dvh;
+      padding-top: var(--header-height); /* space for fixed header */
+    }
+
+    /* Progressier-style fixed header */
+    .site-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: var(--header-height);
+      z-index: 9999;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      background: transparent;
+      transition: background 0.3s ease, backdrop-filter 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .site-header-inner {
+      width: 100%;
+      max-width: 430px; /* match phone width */
+      padding: 0 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #ffffff;
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .site-header-left,
+    .site-header-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+    }
+
+    .site-header-title {
+      font-size: 17px;
+      font-weight: 600;
+    }
+
+    /* On scroll – dark blurred header, like Progressier */
+    body.scrolled .site-header {
+      background: rgba(0, 0, 0, 0.78);
+      backdrop-filter: blur(18px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
     }
 
     /* Outer phone frame */
@@ -107,7 +158,7 @@
       padding-top: calc(var(--safe-top) + 8px);
     }
 
-    /* Status bar */
+    /* Status bar (unused now but kept if you want later) */
     .status-bar {
       height: 48px;
       padding: 0 18px;
@@ -155,49 +206,6 @@
       height: 6px;
       border-radius: 2px;
       background: #000;
-    }
-
-    /* Top nav */
-    .top-bar {
-      padding: calc(4px + var(--safe-top)) 18px 16px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      color: #000;
-    }
-
-    .top-left {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 17px;
-    }
-
-    .back-arrow {
-      font-size: 20px;
-      transform: translateY(-1px);
-    }
-
-    .top-title {
-      font-size: 20px;
-      font-weight: 600;
-    }
-
-    .top-right {
-      font-size: 14px;
-      font-weight: 600;
-      text-align: right;
-    }
-
-    .top-right span {
-      display: block;
-      line-height: 1.1;
-    }
-
-    .qgov-logo {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
     }
 
     /* Content area */
@@ -479,6 +487,21 @@
   </style>
 </head>
 <body>
+  <!-- Progressier-style fixed header -->
+  <header class="site-header">
+    <div class="site-header-inner">
+      <div class="site-header-left">
+        <!-- pretend back button icon -->
+        <span>‹</span>
+        <span class="site-header-title">Digital Licence</span>
+      </div>
+      <div class="site-header-right">
+        <!-- small status-like text -->
+        <span>QLD</span>
+      </div>
+    </div>
+  </header>
+
   <div class="phone">
     <div class="phone-header-bg"></div>
 
@@ -623,5 +646,16 @@
       </div>
     </div>
   </div>
+
+  <script>
+    // Toggle .scrolled on body like Progressier does
+    window.addEventListener("scroll", function () {
+      if (window.scrollY > 10) {
+        document.body.classList.add("scrolled");
+      } else {
+        document.body.classList.remove("scrolled");
+      }
+    });
+  </script>
 </body>
 </html>

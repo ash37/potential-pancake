@@ -3,11 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <title>Digital Licence</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <link rel="icon" type="image/png" sizes="180x180" href="./images/apple-touch-icon.png" />
-  <link rel="apple-touch-icon" href="./images/apple-touch-icon.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#e7b36a">
+  <link rel="icon" type="image/png" sizes="180x180" href="./images/apple-touch-icon.png">
+  <link rel="apple-touch-icon" href="./images/apple-touch-icon.png">
   <style>
     :root {
       --qgov-gold: #f4a93a;
@@ -82,14 +83,13 @@
       }
     }
 
-    /* Gradient header background */
+    /* Header background image (edge-to-edge to the top) */
     .phone-header-bg {
       position: absolute;
       inset: 0 0 auto 0;
       width: 100%;
-      height: auto;
-      padding-top: calc(38.5% + var(--safe-top)); /* 1260x485 image ratio (~38.5%) plus notch inset */
-      background: url("./images/header.jpg") center top / 100% auto no-repeat;
+      padding-top: 38.5%; /* 1260x485 image ratio (~38.5%) */
+      background: url("./images/header.jpg") center top / cover no-repeat;
       background-color: var(--qgov-gold);
       z-index: 0;
     }
@@ -102,6 +102,9 @@
       display: flex;
       flex-direction: column;
       min-height: 0;
+
+      /* keep content below notch while image goes behind it */
+      padding-top: calc(var(--safe-top) + 8px);
     }
 
     /* Status bar */
@@ -480,12 +483,7 @@
     <div class="phone-header-bg"></div>
 
     <div class="phone-inner">
-      <!-- Status bar -->
-    
-
-      
-
-      <!-- Title below top bar -->
+      <!-- Title below top bar / notch -->
       <div style="padding: 20px 20px 18px; font-size: 20px; font-weight: 700;">
         Driver Licence
       </div>
@@ -502,8 +500,7 @@
             <div class="name-block">
               <span class="name-mainnotbold">
                 ASHLEY ROBERT</span>
-               <span class="name-main"> KNIGHT</span>
-              
+              <span class="name-main"> KNIGHT</span>
 
               <div style="margin-top: 8px;">
                 <div class="label">DoB</div>

@@ -52,11 +52,626 @@
         background: url("./images/bg.jpg") center center / cover no-repeat fixed;
       }
     }
+
+    .qld-gov-logo-overlay {
+      position: fixed;
+      top: 120px;
+      left: 0;
+      width: 100vw;
+      height: auto;
+      z-index: 2;
+      opacity: 0.1;
+      pointer-events: none;
+      user-select: none;
+      transform-origin: center center;
+      animation: logo-breathe 2s ease-in-out infinite;
+      will-change: transform, opacity;
+    }
+
+    @keyframes logo-breathe {
+      0% {
+        transform: scale(0.98);
+        opacity: 0.1;
+      }
+      50% {
+        transform: scale(1.03);
+        opacity: 0.1;
+      }
+      100% {
+        transform: scale(0.98);
+        opacity: 0.1;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .qld-gov-logo-overlay {
+        animation: none;
+      }
+    }
+
+    .licence-layer {
+      --text: #111111;
+      --muted: #666666;
+      --line: #cfcfcf;
+      --green: #0a8f61;
+      --bg: transparent;
+      --page-width: 940px;
+      --side-pad: 34px;
+      --photo-w: 300px;
+      --gap: 38px;
+      position: fixed;
+      inset: 0;
+      z-index: 3;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      display: flex;
+      justify-content: center;
+      padding-top: calc(env(safe-area-inset-top) + 130px);
+      padding-bottom: env(safe-area-inset-bottom);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    .licence-layer .card {
+      width: 100%;
+      max-width: var(--page-width);
+      background: var(--bg);
+      padding: 8px var(--side-pad) 28px;
+    }
+
+    .licence-layer .top {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--gap);
+    }
+
+    .licence-layer .photo {
+      width: var(--photo-w);
+      height: 402px;
+      flex: 0 0 var(--photo-w);
+      border-radius: 10px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .licence-layer .identity {
+      flex: 1;
+      min-width: 0;
+      padding-top: 2px;
+    }
+
+    .licence-layer .name-top,
+    .licence-layer .name-bottom {
+      margin: 0;
+      letter-spacing: 0.2px;
+      line-height: 0.96;
+      font-size: 52px;
+      color: #000;
+    }
+
+    .licence-layer .name-top {
+      font-weight: 300;
+    }
+
+    .licence-layer .name-bottom {
+      font-weight: 800;
+      margin-top: 12px;
+    }
+
+    .licence-layer .meta-block {
+      margin-top: 44px;
+    }
+
+    .licence-layer .label {
+      font-size: 34px;
+      line-height: 1.1;
+      font-weight: 400;
+      color: #111;
+      margin: 0 0 8px;
+    }
+
+    .licence-layer .value {
+      font-size: 52px;
+      line-height: 1.06;
+      font-weight: 800;
+      margin: 0;
+      color: #000;
+    }
+
+    .licence-layer .licence-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+
+    .licence-layer .copy-icon {
+      width: 30px;
+      height: 30px;
+      flex: 0 0 30px;
+      stroke: #111;
+      stroke-width: 2;
+      fill: none;
+    }
+
+    .licence-layer .refreshed {
+      margin-top: 58px;
+    }
+
+    .licence-layer .refreshed .info-text {
+      font-size: 31px;
+      font-weight: 400;
+      color: var(--muted);
+      margin: 0 0 20px;
+      letter-spacing: 0.1px;
+    }
+
+    .licence-layer .refreshed .time {
+      font-size: 35px;
+      font-weight: 800;
+      margin: 0;
+      color: #000;
+    }
+
+    .licence-layer .section {
+      border-top: 3px solid var(--line);
+      padding: 34px 0 28px;
+    }
+
+    .licence-layer .section:last-child {
+      padding-bottom: 0;
+    }
+
+    .licence-layer .row {
+      display: flex;
+      align-items: flex-start;
+      gap: 26px;
+    }
+
+    .licence-layer .left-col {
+      width: 39%;
+      min-width: 0;
+      padding-right: 8px;
+    }
+
+    .licence-layer .right-col {
+      width: 61%;
+      min-width: 0;
+    }
+
+    .licence-layer .left-title {
+      font-size: 34px;
+      line-height: 1.15;
+      font-weight: 400;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .licence-layer .info-icon {
+      width: 28px;
+      height: 28px;
+      flex: 0 0 28px;
+      stroke: var(--muted);
+      fill: none;
+      stroke-width: 2.2;
+    }
+
+    .licence-layer .status-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 186px;
+      height: 74px;
+      border-radius: 18px;
+      background: var(--green);
+      color: #fff;
+      font-size: 34px;
+      font-weight: 500;
+      padding: 0 22px;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    .licence-layer .age-wrap {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      color: var(--green);
+      font-size: 34px;
+      font-weight: 400;
+      line-height: 1.2;
+      padding-top: 4px;
+    }
+
+    .licence-layer .check-badge {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: var(--green);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 72px;
+    }
+
+    .licence-layer .check-badge svg {
+      width: 34px;
+      height: 34px;
+      stroke: #fff;
+      fill: none;
+      stroke-width: 3.2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .licence-layer .detail-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      row-gap: 20px;
+    }
+
+    .licence-layer .detail-row {
+      display: flex;
+      align-items: flex-start;
+    }
+
+    .licence-layer .detail-key {
+      width: 160px;
+      flex: 0 0 160px;
+      font-size: 34px;
+      font-weight: 400;
+      color: var(--muted);
+      line-height: 1.2;
+    }
+
+    .licence-layer .detail-value {
+      flex: 1;
+      font-size: 38px;
+      line-height: 1.2;
+      color: #000;
+      font-weight: 400;
+    }
+
+    .licence-layer .detail-value strong {
+      font-weight: 400;
+    }
+
+    .licence-layer .car-line {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: nowrap;
+    }
+
+    .licence-layer .car-icon {
+      width: 54px;
+      height: 34px;
+      vertical-align: middle;
+      flex: 0 0 54px;
+    }
+
+    .licence-layer .conditions-value {
+      font-size: 38px;
+      line-height: 1.2;
+      color: #000;
+      padding-top: 2px;
+    }
+
+    .licence-layer .address-wrap {
+      padding-top: 2px;
+    }
+
+    .licence-layer .address-note {
+      margin-top: 12px;
+      font-size: 27px;
+      line-height: 1.25;
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    .licence-layer .address-value {
+      font-size: 38px;
+      line-height: 1.16;
+      color: #000;
+      text-transform: uppercase;
+      letter-spacing: 0.2px;
+      word-break: break-word;
+    }
+
+    @media (max-width: 760px) {
+      .licence-layer {
+        --side-pad: 18px;
+        --photo-w: 34vw;
+        --gap: 16px;
+      }
+
+      .licence-layer .card {
+        max-width: 100%;
+        padding-top: 10px;
+      }
+
+      .licence-layer .photo {
+        height: calc(var(--photo-w) * 1.34);
+        border-radius: 8px;
+      }
+
+      .licence-layer .name-top,
+      .licence-layer .name-bottom {
+        font-size: 9.2vw;
+      }
+
+      .licence-layer .meta-block {
+        margin-top: 24px;
+      }
+
+      .licence-layer .label {
+        font-size: 6vw;
+      }
+
+      .licence-layer .value {
+        font-size: 8vw;
+      }
+
+      .licence-layer .copy-icon {
+        width: 24px;
+        height: 24px;
+      }
+
+      .licence-layer .refreshed {
+        margin-top: 34px;
+      }
+
+      .licence-layer .refreshed .info-text {
+        font-size: 5.7vw;
+        margin-bottom: 12px;
+      }
+
+      .licence-layer .refreshed .time {
+        font-size: 6.2vw;
+      }
+
+      .licence-layer .section {
+        padding: 22px 0 20px;
+        border-top-width: 2px;
+      }
+
+      .licence-layer .left-title,
+      .licence-layer .detail-key {
+        font-size: 6vw;
+      }
+
+      .licence-layer .status-pill {
+        min-width: 132px;
+        height: 54px;
+        border-radius: 14px;
+        font-size: 6vw;
+        padding: 0 16px;
+      }
+
+      .licence-layer .age-wrap {
+        font-size: 6vw;
+        gap: 12px;
+      }
+
+      .licence-layer .check-badge {
+        width: 54px;
+        height: 54px;
+        flex-basis: 54px;
+      }
+
+      .licence-layer .check-badge svg {
+        width: 25px;
+        height: 25px;
+      }
+
+      .licence-layer .detail-key {
+        width: 114px;
+        flex-basis: 114px;
+      }
+
+      .licence-layer .detail-value,
+      .licence-layer .conditions-value,
+      .licence-layer .address-value {
+        font-size: 6.7vw;
+      }
+
+      .licence-layer .info-icon {
+        width: 24px;
+        height: 24px;
+        flex-basis: 24px;
+      }
+
+      .licence-layer .address-note {
+        font-size: 5vw;
+      }
+
+      .licence-layer .car-icon {
+        width: 45px;
+        height: 29px;
+        flex-basis: 45px;
+      }
+    }
   </style>
 </head>
 
 <body style="background-color: #f1b05c;">
   <div style="position: fixed; top: 0; left: 0; width: 100%; height: calc(12px + env(safe-area-inset-top, 0px)); background-color: #f1b05c; z-index: 1;"></div>
-  <!-- EMPTY for now — only background image -->
+  <img
+    class="qld-gov-logo-overlay"
+    src="./images/Queensland_Government_logo_PNG_1.png"
+    alt="Queensland Government logo"
+  />
+  <div class="licence-layer">
+    <div class="card">
+      <div class="top">
+        <img class="photo" src="./images/head.png" alt="Head photo" />
+
+        <div class="identity">
+          <h1 class="name-top">ASHLEY ROBERT</h1>
+          <h2 class="name-bottom">KNIGHT</h2>
+
+          <div class="meta-block">
+            <p class="label">DoB</p>
+            <p class="value">17 Jun 1983</p>
+          </div>
+
+          <div class="meta-block">
+            <div class="licence-row">
+              <p class="label" style="margin: 0;">Licence No.</p>
+              <svg class="copy-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="9" y="3" width="11" height="14" rx="2"></rect>
+                <rect x="4" y="8" width="11" height="13" rx="2"></rect>
+              </svg>
+            </div>
+            <p class="value">071441259</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="refreshed">
+        <p class="info-text">Information was refreshed online:</p>
+        <p class="time" id="refreshed-time"></p>
+      </div>
+
+      <div class="section">
+        <div class="row">
+          <div class="left-col">
+            <div class="left-title">
+              <span>Status</span>
+              <svg class="info-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="9"></circle>
+                <path d="M12 10.5v5"></path>
+                <circle cx="12" cy="7.2" r="1"></circle>
+              </svg>
+            </div>
+          </div>
+          <div class="right-col">
+            <div class="status-pill">Current</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="row">
+          <div class="left-col">
+            <div class="left-title">Age</div>
+          </div>
+          <div class="right-col">
+            <div class="age-wrap">
+              <span class="check-badge" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M5 12.5l4.2 4.2L19 7.2"></path>
+                </svg>
+              </span>
+              <span>Over 18</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="row">
+          <div class="left-col">
+            <div class="left-title" style="margin-bottom: 16px;">
+              <span>Class</span>
+              <svg class="info-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="9"></circle>
+                <path d="M12 10.5v5"></path>
+                <circle cx="12" cy="7.2" r="1"></circle>
+              </svg>
+            </div>
+
+            <div class="detail-grid">
+              <div class="detail-key">Type</div>
+              <div class="detail-key">Expiry</div>
+            </div>
+          </div>
+
+          <div class="right-col">
+            <div class="detail-grid">
+              <div class="detail-row">
+                <div class="detail-value">
+                  <span class="car-line">
+                    <span>(C) Car</span>
+                    <svg class="car-icon" viewBox="0 0 64 40" aria-hidden="true">
+                      <path
+                        d="M16 28h32l4 0c4 0 6 2 6 5v1c0 3-2 5-5 5h-2a7 7 0 0 0-14 0H27a7 7 0 0 0-14 0h-2c-3 0-5-2-5-5v-5c0-3 2-5 5-5h3l4-10c1.1-2.7 3-4 6-4h18c2.7 0 4.7 1.2 6 3.6L52 24h2c3 0 5 2 5 5v0H16zM21 14l-3.5 10H30V14H21zm14 0v10h12.8l-4.8-10H35zM19.8 40a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9zm24.8 0a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9z"
+                        fill="#000"
+                      />
+                    </svg>
+                  </span>
+                </div>
+              </div>
+
+              <div class="detail-row">
+                <div class="detail-value">(O) Open</div>
+              </div>
+
+              <div class="detail-row">
+                <div class="detail-value">29 Jun 2028</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="row">
+          <div class="left-col">
+            <div class="left-title">
+              <span>Conditions</span>
+              <svg class="info-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="9"></circle>
+                <path d="M12 10.5v5"></path>
+                <circle cx="12" cy="7.2" r="1"></circle>
+              </svg>
+            </div>
+          </div>
+          <div class="right-col">
+            <div class="conditions-value">-</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="row">
+          <div class="left-col">
+            <div class="left-title" style="display:block;">Address</div>
+            <div class="address-note">Are your details up to date?</div>
+          </div>
+          <div class="right-col address-wrap">
+            <div class="address-value">
+              2 LANCEWOOD CLOSE<br />
+              NORMAN GARDENS
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function setRefreshedTime() {
+      var target = document.getElementById("refreshed-time");
+      if (!target) return;
+
+      var now = new Date();
+      var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+      var day = String(now.getDate()).padStart(2, "0");
+      var month = months[now.getMonth()];
+      var year = now.getFullYear();
+
+      var hours24 = now.getHours();
+      var minutes = String(now.getMinutes()).padStart(2, "0");
+      var suffix = hours24 >= 12 ? "pm" : "am";
+      var hours12 = hours24 % 12;
+      if (hours12 === 0) hours12 = 12;
+      var hour = String(hours12).padStart(2, "0");
+
+      target.textContent = day + " " + month + " " + year + " " + hour + ":" + minutes + suffix;
+    })();
+  </script>
 </body>
 </html>
